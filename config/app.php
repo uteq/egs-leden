@@ -235,4 +235,9 @@ return [
 
     ],
 
+    'admin_emails' => [
+        'info@nathanjansen.nl',
+        'faber.boog@home.nl',
+    ],
+
 ];

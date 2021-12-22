@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\Data\MemberInfo;
+use App\Data\MemberStatuses;
 use App\Models\Member;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -46,6 +48,10 @@ class Members extends Component
     public function getMembers()
     {
         return Member::query()
+            ->withCasts([
+                'info' => MemberInfo::class,
+                'statuses' => MemberStatuses::class,
+            ])
             ->get()
             ->when($this->search, function (Collection $members) {
                 return $members->filter(fn ($member) => $member->like($this->search));

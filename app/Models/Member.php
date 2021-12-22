@@ -4,8 +4,10 @@ namespace App\Models;
 
 use App\Data\MemberInfo;
 use App\Data\MemberStatuses;
+use App\Models\Builders\MemberQueryBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use JetBrains\PhpStorm\Pure;
 
 /**
  * @property MemberInfo $info
@@ -18,9 +20,14 @@ class Member extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'info' => MemberInfo::class,
-        'statuses' => MemberStatuses::class,
+        'info' => 'json',
+        'statuses' => 'json',
     ];
+
+    #[Pure] public function newEloquentBuilder($query): MemberQueryBuilder
+    {
+        return new MemberQueryBuilder($query);
+    }
 
     public static function findByExternalId($id)
     {

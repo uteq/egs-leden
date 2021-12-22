@@ -14,6 +14,7 @@
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.5",
         "spatie/laravel-data": "^1.2",
+        "spatie/ray": "^1.32",
         "uteq/laravel-move": "^0.3.0"
     },
     "require-dev": {
