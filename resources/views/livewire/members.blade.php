@@ -73,7 +73,7 @@
                 >
                     <div x-show="editing != '{{ $member->statuses->other }}'"
                          x-cloak
-                         class="flex gap-2 items-center"
+                         class="flex gap-2 items-center text-xs"
                     >
                         <div class="group-hover:block {{ $this->editing == $member->id ? null : 'hidden' }}">
                             @if ($this->editing == $member->id)
@@ -98,6 +98,7 @@
 
                         <div x-on:click="editing = '{{ $member->id }}'"
                              x-show="editing == null"
+                             class="mt-1 group-hover:mt-0"
                         >
                             {!! $member->statuses->other !!}
                         </div>
