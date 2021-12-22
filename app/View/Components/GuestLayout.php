@@ -13,7 +13,7 @@ class GuestLayout extends Component
      */
     public function render()
     {
-        if (auth()) {
+        if (auth()->user()) {
             exit(redirect()->route('dashboard'));
         }
 
