@@ -19,30 +19,23 @@ class Members extends Component
 
     public array $store = [];
 
-    public ?string $editing = null;
+    public $readyToLoad = false;
 
-    public ?string $updatingStatus = null;
-
-    public array $statusPayload = [];
-
-    protected array $rules = [
-        'members.*.statuses.other' => '',
-    ];
+    public function loadMembers()
+    {
+        $this->readyToLoad = true;
+    }
 
     public function updatedMembers($value, $key)
     {
         $id = (int) (string) Str::of($key)
             ->before('.');
 
-        $member = $this->members
-            ->filter(fn ($member) => $member->id === $id)
-            ->first();
+        $path = str_replace($id . '.', '', $key);
 
-        $data = $member->toArray();
-        unset($data['id']);
-        Arr::set($data, Str::of($key)->after('.'), $value);
-
-        $member->fill($data)->save();
+        $member = $this->getMembers()->get($id);
+        $member->set($path, $value);
+        $member->save();
     }
 
     public function getMembers()
@@ -59,39 +52,16 @@ class Members extends Component
             ->mapWithKeys(fn ($member) => [$member->id => $member]);
     }
 
-    public function registerStatus(Member $member, string $status, string $description)
+    public function createMember()
     {
-        $this->statusPayload = [
-            'member' => $member->toArray(),
-            'status' => $status,
-            'description' => $description,
-            'date' => $member->statuses->{$status}?->format('d-m-Y'),
-        ];
-
-        $this->updatingStatus = true;
-    }
-
-    public function updateStatus(Member $member, string $status)
-    {
-        $date = $this->statusPayload['date'];
-
-        $statuses = $member->statuses;
-        $statuses->{$status} = $date ? now()->parse($date) : null;
-
-        $member->save();
-
-        $this->updatingStatus = false;
+        return redirect(route('create-member'));
     }
 
     public function render()
     {
-        $this->members = $this->getMembers();
+        $this->members = $this->readyToLoad ? $this->getMembers() : collect([]);
 
-        return view('livewire.members', [
-                'members' => $this->members,
-                'statusPayload' => $this->statusPayload,
-                'updatingStatus' => $this->updatingStatus,
-            ])
+        return view('livewire.members')
             ->layout('layouts.app', [
                 'header' => null,
             ]);

@@ -15,7 +15,7 @@
         "livewire/livewire": "^2.5",
         "spatie/laravel-data": "^1.2",
         "spatie/ray": "^1.32",
-        "uteq/laravel-move": "^0.3.0"
+        "uteq/laravel-move": "dev-master"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -32,6 +32,9 @@
             "Database\\Seeders\\": "database/seeders/"
         }
     },
+    "repositories": [
+        { "type": "path", "url": "../laravel-move" }
+    ],
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"

@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])
     ->get('/dashboard', \App\Http\Livewire\Members::class)
     ->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/create-member', \App\Http\Livewire\CreateMember::class)
+    ->name('create-member');

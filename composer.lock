@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "31c5de21ab3cd410061805aac7058e40",
+    "content-hash": "86c3b9249bf4e2d26a5634e1c2a9b73f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7371,17 +7371,11 @@
         },
         {
             "name": "uteq/laravel-move",
-            "version": "0.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/uteq/laravel-move.git",
-                "reference": "ad3c93f6017def84e9f175483a3b67ee74da3c4d"
-            },
+            "version": "dev-master",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/uteq/laravel-move/zipball/ad3c93f6017def84e9f175483a3b67ee74da3c4d",
-                "reference": "ad3c93f6017def84e9f175483a3b67ee74da3c4d",
-                "shasum": ""
+                "type": "path",
+                "url": "../laravel-move",
+                "reference": "f5e2cf2c1f12d00fcd57ba1342eafb4aa42e02f8"
             },
             "require": {
                 "ext-exif": "*",
@@ -7424,7 +7418,25 @@
                     "src/Support/helpers.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Uteq\\Move\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "psalm": [
+                    "vendor/bin/psalm"
+                ],
+                "test": [
+                    "vendor/bin/phpunit --colors=always"
+                ],
+                "test-coverage": [
+                    "vendor/bin/phpunit --coverage-html coverage"
+                ],
+                "format": [
+                    "vendor/bin/php-cs-fixer fix --allow-risky=yes"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -7442,11 +7454,9 @@
                 "laravel-move",
                 "uteq"
             ],
-            "support": {
-                "issues": "https://github.com/uteq/laravel-move/issues",
-                "source": "https://github.com/uteq/laravel-move/tree/0.3.0"
-            },
-            "time": "2021-12-21T16:39:39+00:00"
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "vlucas/phpdotenv",
@@ -10064,7 +10074,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "uteq/laravel-move": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

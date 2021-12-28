@@ -5,9 +5,12 @@ namespace App\Models;
 use App\Data\MemberInfo;
 use App\Data\MemberStatuses;
 use App\Models\Builders\MemberQueryBuilder;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use JetBrains\PhpStorm\Pure;
+use Spatie\LaravelData\Data;
 
 /**
  * @property MemberInfo $info
@@ -23,6 +26,23 @@ class Member extends Model
         'info' => 'json',
         'statuses' => 'json',
     ];
+
+    public function set(string $key, $value)
+    {
+        $data = $this->toArray();
+
+        Arr::set($data, $key, $value);
+
+        foreach ($data as $dataKey => $dataValue) {
+            if (! str_contains($key, $dataKey)) {
+                continue;
+            }
+
+            $this->{$dataKey} = $dataValue;
+        }
+
+        return $this;
+    }
 
     #[Pure] public function newEloquentBuilder($query): MemberQueryBuilder
     {

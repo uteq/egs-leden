@@ -24,30 +24,30 @@
 
     <div class="h-screen flex overflow-hidden bg-gray-100">
 
-        <?php if (auth()->user()->isAdmin()): ?>
-            <x-move-sidebar custom keep-not-custom="false">
-                <div class="p-2">
-                    <x-move-sidebar.link
-                        alt-active="dashboard"
-                        href="/dashboard"
-                    >
-                        Dashboard
-                    </x-move-sidebar.link>
-                </div>
+{{--        <?php if (auth()->user()->isAdmin()): ?>--}}
+{{--            <x-move-sidebar custom keep-not-custom="false">--}}
+{{--                <div class="p-2">--}}
+{{--                    <x-move-sidebar.link--}}
+{{--                        alt-active="dashboard"--}}
+{{--                        href="/dashboard"--}}
+{{--                    >--}}
+{{--                        Dashboard--}}
+{{--                    </x-move-sidebar.link>--}}
+{{--                </div>--}}
 
-                <div class="mt-4 pt-4 pb-2 text-white border-t border-red-400">
-                    Beheer
-                </div>
-            </x-move-sidebar>
-        <?php endif; ?>
+{{--                <div class="mt-4 pt-4 pb-2 text-white border-t border-red-400">--}}
+{{--                    Beheer--}}
+{{--                </div>--}}
+{{--            </x-move-sidebar>--}}
+{{--        <?php endif; ?>--}}
 
         <div class="flex flex-col w-0 flex-1 overflow-hidden">
             <div class="relative z-5 flex-shrink-0 flex h-16 bg-white shadow">
-                <?php if (auth()->user()->isAdmin()): ?>
-                    <x-move-header></x-move-header>
-                <?php else: ?>
-                    <x-move-header hide-search></x-move-header>
-                <?php endif; ?>
+{{--                <?php if (auth()->user()->isAdmin()): ?>--}}
+{{--                    <x-move-header></x-move-header>--}}
+{{--                <?php else: ?>--}}
+                    <x-move-header hide-mobile-menu-button hide-search></x-move-header>
+<!--                --><?php //endif; ?>
             </div>
 
             <div class="text-sm bg-gray-200 pl-12 py-2">

@@ -44,9 +44,11 @@ class Member extends Resource
 
             Text::make('Lidstatus', 'info.status'),
 
+            Text::make('Adres', 'info.address'),
+
             Text::make('Email', 'info.email'),
 
-            Text::make('Telefonnummer', 'info.phone'),
+            Text::make('Telefoonummer', 'info.phone'),
 
             Date::make('Bezocht', 'statuses.visited_at'),
 
@@ -61,6 +63,15 @@ class Member extends Resource
     public function filters()
     {
         return [];
+    }
+
+    public function redirects(): array
+    {
+        return [
+            'create' => route('dashboard'),
+            'update' => route('dashboard'),
+            'cancel' => fn () => route('dashboard'),
+        ];
     }
 
     public function actions()
