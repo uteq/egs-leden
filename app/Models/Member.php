@@ -5,12 +5,10 @@ namespace App\Models;
 use App\Data\MemberInfo;
 use App\Data\MemberStatuses;
 use App\Models\Builders\MemberQueryBuilder;
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use JetBrains\PhpStorm\Pure;
-use Spatie\LaravelData\Data;
 
 /**
  * @property MemberInfo $info
@@ -26,6 +24,13 @@ class Member extends Model
         'info' => 'json',
         'statuses' => 'json',
     ];
+
+    public static function booted()
+    {
+        static::updated(function() {
+            Version::up('members');
+        });
+    }
 
     public function set(string $key, $value)
     {
@@ -55,7 +60,7 @@ class Member extends Model
             ->firstWhere('info->external_id', $id);
     }
 
-    public function like($search)
+    public function search($search)
     {
         $search = strtolower($search);
 

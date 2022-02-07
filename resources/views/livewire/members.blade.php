@@ -1,8 +1,8 @@
 <div class="max-w-5xl mx-auto rounded flex flex-col"
      wire:target="updatingStatus"
      wire:loading.class="opacity-50"
+     wire:poll.10000ms
 >
-
     <div class="flex items-center justify-between">
         <h1 class="text-xl py-4">
             Leden & vaste bezoekers
@@ -24,7 +24,7 @@
             <div class="col-span-2">Overig</div>
         </div>
 
-        <div class="flex flex-col" wire:init="loadMembers" wire:key="members-{{ count($members) }}">
+        <div class="flex flex-col" wire:init="loadMembers" wire:key="members-{{ count($members) }}-{{ $version }}">
         @if (count($members))
             @foreach ($members as $key => $member)
                 <livewire:member :member="$member" wire:key="member-{{ $member->id }}" />

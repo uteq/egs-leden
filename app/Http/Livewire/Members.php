@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Data\MemberInfo;
 use App\Data\MemberStatuses;
 use App\Models\Member;
+use App\Models\Version;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -52,7 +53,7 @@ class Members extends Component
             ->get()
             ->filter()
             ->when($this->search, function (Collection $members) {
-                return $members->filter(fn ($member) => $member->like($this->search));
+                return $members->filter(fn ($member) => $member->search($this->search));
             })
             ->mapWithKeys(fn ($member) => [$member->id => $member]);
     }
@@ -66,7 +67,9 @@ class Members extends Component
     {
         $this->members = $this->readyToLoad ? $this->getMembers() : collect([]);
 
-        return view('livewire.members')
+        return view('livewire.members', [
+            'version' => Version::version('members'),
+        ])
             ->layout('layouts.app', [
                 'header' => null,
             ]);
