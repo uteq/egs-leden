@@ -15,7 +15,7 @@ class Member extends Component
 
     public int $memberId;
 
-    public MemberModel $member;
+    public ?MemberModel $member;
 
     public array $statusPayload = [];
 
@@ -69,6 +69,8 @@ class Member extends Component
     public function remove(MemberModel $member)
     {
         $member->delete();
+
+        $this->emit('memberRemoved');
     }
 
     public function render()

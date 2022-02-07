@@ -21,6 +21,10 @@ class Members extends Component
 
     public $readyToLoad = false;
 
+    protected $listeners = [
+        'memberRemoved' => 'render'
+    ];
+
     public function loadMembers()
     {
         $this->readyToLoad = true;
@@ -46,6 +50,7 @@ class Members extends Component
                 'statuses' => MemberStatuses::class,
             ])
             ->get()
+            ->filter()
             ->when($this->search, function (Collection $members) {
                 return $members->filter(fn ($member) => $member->like($this->search));
             })
