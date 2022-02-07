@@ -2,8 +2,10 @@
 
 namespace App\Move;
 
+use App\Move\Actions\ImportMembersFromKerkspotAction;
 use Illuminate\Support\Str;
 use Uteq\Move\Fields\Date;
+use Uteq\Move\Fields\Editor;
 use Uteq\Move\Fields\ID;
 use Uteq\Move\Fields\Text;
 use Uteq\Move\Resource;
@@ -36,6 +38,15 @@ class Member extends Resource
         return 'Leden';
     }
 
+    public function headerSlots($resourceTable): array
+    {
+        return [
+            'beforeAdd' => view('move.member.import-members-modal', [
+                'resource' => $resourceTable->resource(),
+            ]),
+        ];
+    }
+
     public function fields()
     {
         return [
@@ -44,19 +55,22 @@ class Member extends Resource
 
             Text::make('Lidstatus', 'info.status'),
 
-            Text::make('Adres', 'info.address'),
+            Text::make('Adres', 'info.address')->hideFromIndex(),
 
-            Text::make('Email', 'info.email'),
+            Text::make('Email', 'info.email')->hideFromIndex(),
 
-            Text::make('Telefoonummer', 'info.phone'),
+            Text::make('Telefoonummer', 'info.phone')->hideFromIndex(),
 
             Date::make('Bezocht', 'statuses.visited_at'),
+            Editor::make('Bezocht Notitie', 'statuses.visited_note')->hideFromIndex(),
 
             Date::make('Gebeld', 'statuses.called_at'),
+            Editor::make('Bellen Notitie', 'called.visited_note')->hideFromIndex(),
 
             Date::make('Kaart', 'statuses.mailed_at'),
+            Editor::make('Kaart Notitie', 'called.mailed_note')->hideFromIndex(),
 
-            Date::make('Overig', 'statuses.other'),
+            Editor::make('Overig', 'statuses.other'),
         ];
     }
 
@@ -77,7 +91,7 @@ class Member extends Resource
     public function actions()
     {
         return [
-            new ExportToExcelAction
+            new ExportToExcelAction,
         ];
     }
 }

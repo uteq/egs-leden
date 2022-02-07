@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,13 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])
-    ->get('/dashboard', \App\Http\Livewire\Members::class)
+    ->get('/dashboard', Livewire\Members::class)
     ->name('dashboard');
 
 Route::middleware(['auth:sanctum', 'verified'])
-    ->get('/create-member', \App\Http\Livewire\CreateMember::class)
+    ->get('/create-member', Livewire\CreateMember::class)
     ->name('create-member');
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/import-members', Livewire\ImportMembers::class)
+    ->name('import-members');
