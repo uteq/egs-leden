@@ -5,7 +5,7 @@
 
         <x-move-alert color="red" class="my-4">
             <b>LET OP</b>
-            <p>Hiermee wordt de bestaande lijst met leden overschreven.</p>
+            <p>Hiermee wordt de bestaande lijst met leden overschreven. Deze actie kan niet ongedaan worden gemaakt.</p>
         </x-move-alert>
 
         <form wire:submit.prevent="import">
